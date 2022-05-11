@@ -3,7 +3,7 @@ import treatment from '../../../assets/images/treatment.png'
 
 const Treatment = () => {
     return (
-       <div className='my-28 lg:px-40 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-6 items-center'>
+       <div className='my-28 lg:px-40 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-6 items-center px-12'>
            <div>
                <img style={{width: '458px', height: '576px'}} className='' src={treatment} alt="" />
            </div>
