@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Nav from './Pages/Shared/Nav';
 import { Route, Routes } from 'react-router-dom';
@@ -10,11 +9,14 @@ import Contact from './Pages/HomeSection/Contact/Contact';
 import Login from './Pages/HomeSection/Login/Login';
 
 
+
+
 function App() {
   return (
     <div className="">
       <Nav/>
       <Routes>
+        <Route path='/' element={ <Home/> }></Route>
         <Route path='/home' element={ <Home/> }></Route>
         <Route path='/about' element={ <About/> }></Route>
         <Route path='/appointment' element={ <Appointment/> }></Route>
