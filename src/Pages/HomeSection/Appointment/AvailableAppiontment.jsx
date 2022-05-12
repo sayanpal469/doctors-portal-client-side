@@ -8,7 +8,7 @@ const AvailableAppiontment = ({date, setDate}) => {
     const [treatment, setTreatment] = useState(null)
 
     useEffect( () => {
-        fetch('service.json')
+        fetch('http://localhost:5000/service')
         .then(res => res.json())
         .then(data => {
             //console.log(data);
