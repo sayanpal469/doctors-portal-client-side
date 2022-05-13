@@ -8,6 +8,7 @@ import Reviews from './Pages/HomeSection/Review/Reviews';
 import Contact from './Pages/HomeSection/Contact/Contact';
 import Login from './Pages/HomeSection/Login/Login';
 import SignUp from './Pages/HomeSection/Login/SignUp';
+import RequireAuth from './Pages/HomeSection/Login/RequireAuth';
 
 
 
@@ -20,7 +21,9 @@ function App() {
         <Route path='/' element={ <Home/> }></Route>
         <Route path='/home' element={ <Home/> }></Route>
         <Route path='/about' element={ <About/> }></Route>
-        <Route path='/appointment' element={ <Appointment/> }></Route>
+        <Route path='/appointment' element={ <RequireAuth>
+          <Appointment/>
+        </RequireAuth> }></Route>
         <Route path='/reviews' element={ <Reviews/> }></Route>
         <Route path='/contact' element={ <Contact/> }></Route>
         <Route path='/login' element={ <Login/> }></Route>
