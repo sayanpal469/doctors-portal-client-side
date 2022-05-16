@@ -1,16 +1,44 @@
 import { format } from 'date-fns';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../../firebase.init';
 
 const BookingModal = ({treatment, date, setTreatment}) => {
+    const [user] = useAuthState(auth)
     const {_id, slots, name} = treatment
+    const formattedDate = format(date, 'PP');
 
     const handelBook = (e) => {
         e.preventDefault()
-
         const slot = e.target.slot.value
-
         console.log(_id, name, date, slot);
-        setTreatment(null)
+        const booking = {
+            treatmentId: _id,
+            treatment: name,
+            date: formattedDate,
+            slot,
+            patient: user.email,
+            patientName: user.displayName,
+            phone: e.target.phone.value
+        }
+
+        fetch(`http://localhost:5000/booking`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(booking)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.success){
+                alert(`Appointment is set, ${formattedDate} at ${slot}`)
+            } else{
+                alert(`Already have an appointment on ${data.booking?.date} at ${data.booking?.slot}`)
+            }
+            console.log(data);
+            setTreatment(null)
+        })
     }
     return (
        <div>
@@ -26,8 +54,8 @@ const BookingModal = ({treatment, date, setTreatment}) => {
                             slots.map(slot => <option value={slot}>{slot}</option>)
                         } 
                     </select>
-                    <input type="text" name='name' placeholder="Your name" class="input input-bordered w-full max-w-xs" />
-                    <input type="email" name='email' placeholder="Your email" class="input input-bordered w-full max-w-xs" />
+                    <input type="text" name='name' disabled value={user?.displayName} placeholder="Your name" class="input input-bordered w-full max-w-xs" />
+                    <input type="email" name='email' disabled value={user?.email} placeholder="Your email" class="input input-bordered w-full max-w-xs" />
                     <input type="text" name='phone' placeholder="Phone number" class="input input-bordered w-full max-w-xs" />
                     <input type="submit" class="btn btn-secondary text-white w-full max-w-xs" />
                     </form>

@@ -7,8 +7,9 @@ const AvailableAppiontment = ({date, setDate}) => {
     const [services, setServices] = useState([])
     const [treatment, setTreatment] = useState(null)
 
+    const formatedDate = format(date, 'PP')
     useEffect( () => {
-        fetch('http://localhost:5000/service')
+        fetch(`http://localhost:5000/service`)
         .then(res => res.json())
         .then(data => {
             //console.log(data);
