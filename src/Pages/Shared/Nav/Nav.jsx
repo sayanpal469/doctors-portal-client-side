@@ -16,6 +16,7 @@ const Nav = () => {
 
   const logout = () => {
     signOut(auth);
+    localStorage.removeItem('accessToken')
   };
 // <li><Link onClick={logout} to='/login'>Log out</Link></li>
 
@@ -27,9 +28,9 @@ const Nav = () => {
             <li><NavLink to='/contact'>Contact Us</NavLink></li>
             {user && <li><NavLink to='/dashboard'>Dashboard</NavLink></li>}
             {user ? 
-              <div class="dropdown lg:dropdown-end">
-              <label tabindex="0" class=""><FaUserAlt className='text-2xl mt-3 ml-3'></FaUserAlt></label>
-              <ul tabindex="0" class="dropdown-content  menu  pr-28 shadow bg-base-100 rounded-box w-80 mt-10">            
+              <div className="dropdown lg:dropdown-end">
+              <label tabindex="0" className=""><FaUserAlt className='text-2xl mt-3 ml-3'></FaUserAlt></label>
+              <ul tabindex="0" className="dropdown-content  menu  pr-28 shadow bg-base-100 rounded-box w-80 mt-10">            
               <li><NavLink className='text-red-500 font-bold' onClick={logout} to='/login'>Log out</NavLink></li>            
               </ul>
             </div>

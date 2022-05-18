@@ -5,6 +5,7 @@ import { useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSi
 import { useForm } from "react-hook-form";
 import Loading from '../../Shared/Loading/Loading';
 import { Link, useNavigate } from 'react-router-dom';
+import useToken from '../../../hooks/useToken';
 
 const SignUp = () => {
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
@@ -17,12 +18,14 @@ const SignUp = () => {
       ] = useCreateUserWithEmailAndPassword(auth);
       const [updateProfile, updating, updateError] = useUpdateProfile(auth);
       const navigate = useNavigate()
-        
+      
+      const [token] = useToken(user || gUser)
+
         let signInError;
 
-        if(gUser) {
-            navigate('/')
-        }
+       if(token) {
+           navigate('/appointment')
+       }
 
         if( gLoading || loading || updating) {
             return <Loading/>
@@ -33,16 +36,16 @@ const SignUp = () => {
         }
 
         const onSubmit = async (data) => {
-            console.log(data)
+            //console.log(data)
             await createUserWithEmailAndPassword(data.email, data.password)
             await updateProfile({ displayName: data.name });
-            navigate('/')
+            
         };
     return (
         <div className='flex justify-center items-center h-screen'>
-           <div class="card w-96 bg-base-100 shadow-xl">
-            <div class="card-body">
-                <h2 class="text-2xl text-center font-bold">Sign Up</h2>
+           <div className="card w-96 bg-base-100 shadow-xl">
+            <div className="card-body">
+                <h2 className="text-2xl text-center font-bold">Sign Up</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                     <div className="form-control w-full max-w-xs">
@@ -120,10 +123,10 @@ const SignUp = () => {
                     <input className='btn w-full max-w-xs text-white' type="submit" value="Sign Up" />
                     </form>
                     <small className='text-center text-sm my-2'>Already have an account? <Link to='/login' className='text-primary font-bold ml-2'> Please log in</Link></small>
-                <div class="divider">OR</div>
+                <div className="divider">OR</div>
                 <button
                 onClick={() => signInWithGoogle()}
-                 class="btn btn-outline"
+                 className="btn btn-outline"
                  ><FcGoogle className='text-4xl'
                  ></FcGoogle>
                  <p>Continue with Google</p>

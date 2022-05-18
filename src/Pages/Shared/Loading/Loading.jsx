@@ -6,9 +6,9 @@ const Loading = () => {
     return (
         <div className='flex justify-center items-center h-screen'>
            <div id="main">
-                <div class="box s">
-                    <div class="bar" id="a1"></div>
-                    <div class="bar" id="a2"></div>
+                <div className="box s">
+                    <div className="bar" id="a1"></div>
+                    <div className="bar" id="a2"></div>
                 </div>  
             </div>
         </div>

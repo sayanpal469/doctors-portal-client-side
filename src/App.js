@@ -13,6 +13,8 @@ import DashBoard from './Pages/DashBoard/DashBoard';
 import MyApointment from './Pages/MyAppiontment/MyApointment';
 import MyReview from './Pages/MyReview/MyReview';
 import MyHistory from './Pages/MyHistory/MyHistory.jsx';
+import Users from './Pages/Users/Users';
+import RequireAdmin from './RequireAdmin/RequireAdmin';
 
 
 
@@ -33,6 +35,9 @@ function App() {
             <Route index element={ <MyApointment/> } />
             <Route path='myReview' element={ <MyReview/> } />
             <Route path='myHistory' element={ <MyHistory/> } />
+            <Route path='allUsers' element={ <RequireAdmin>
+              <Users/>
+            </RequireAdmin> } />
         </Route>
         
         <Route path='/reviews' element={ <Reviews/> }></Route>

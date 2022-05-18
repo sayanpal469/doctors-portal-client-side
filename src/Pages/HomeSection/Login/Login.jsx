@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import auth from '../../../firebase.init';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
 import Loading from '../../Shared/Loading/Loading';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { async } from '@firebase/util';
+import useToken from '../../../hooks/useToken';
 
 const Login = () => {
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
@@ -15,18 +17,21 @@ const Login = () => {
         loading,
         error,
       ] = useSignInWithEmailAndPassword(auth);
+
       const navigate = useNavigate()
       let location = useLocation();
+      const emailRef = useRef('')
 
       let from = location.state?.from?.pathname || "/";
+      let signInError;
 
-        
-        let signInError;
-
-        if(user || gUser) {
+      const [token] = useToken(user || gUser)
+      useEffect( () => {
+        if(token) {
             console.log(user);
             navigate(from, { replace: true });
         }
+      }, [token ,from, navigate])
 
         if( gLoading || loading) {
             return <Loading/>
@@ -36,15 +41,16 @@ const Login = () => {
             signInError= <small className='text-red-500 my-2 text-center'>{error?.message || gError?.message}</small>
         }
 
+
         const onSubmit = data => {
             console.log(data)
             signInWithEmailAndPassword(data.email, data.password)
         };
     return (
         <div className='flex justify-center items-center h-screen'>
-           <div class="card w-96 bg-base-100 shadow-xl">
-            <div class="card-body">
-                <h2 class="text-2xl text-center font-bold">Login</h2>
+           <div className="card w-96 bg-base-100 shadow-xl">
+            <div className="card-body">
+                <h2 className="text-2xl text-center font-bold">Login</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                     <div className="form-control w-full max-w-xs">
@@ -53,6 +59,8 @@ const Login = () => {
                         </label>
                         <input
                             type="email"
+                            ref={emailRef}
+                            name='email'
                             placeholder="Your Email"
                             className="input input-bordered w-full max-w-xs"
                             {...register("email", {
@@ -97,13 +105,14 @@ const Login = () => {
                     </div>
 
                             {signInError}
-                    <input className='btn w-full max-w-xs text-white' type="submit" value="Login" />
+                            
+                    <input className='btn w-full max-w-xs text-white mt-3' type="submit" value="Login" />
                     </form>
                     <small className='text-center text-sm my-2'>Do not have an account? <Link to='/signup' className='text-primary font-bold ml-3'> Create a new account</Link></small>
-                <div class="divider">OR</div>
+                <div className="divider">OR</div>
                 <button
                 onClick={() => signInWithGoogle()}
-                 class="btn btn-outline"
+                 className="btn btn-outline"
                  ><FcGoogle className='text-4xl'
                  ></FcGoogle>
                  <p>Continue with Google</p>
