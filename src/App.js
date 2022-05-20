@@ -15,6 +15,7 @@ import MyReview from './Pages/MyReview/MyReview';
 import MyHistory from './Pages/MyHistory/MyHistory.jsx';
 import Users from './Pages/Users/Users';
 import RequireAdmin from './RequireAdmin/RequireAdmin';
+import AddDoctor from './Pages/AddDoctor/AddDoctor';
 
 
 
@@ -37,6 +38,9 @@ function App() {
             <Route path='myHistory' element={ <MyHistory/> } />
             <Route path='allUsers' element={ <RequireAdmin>
               <Users/>
+            </RequireAdmin> } />
+            <Route path='addDoctor' element={ <RequireAdmin>
+              <AddDoctor/>
             </RequireAdmin> } />
         </Route>
         

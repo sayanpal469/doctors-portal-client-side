@@ -3,10 +3,16 @@ import { Link, NavLink, Outlet } from 'react-router-dom';
 import useAdmin from '../../hooks/useAdmin';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
+import Loading from '../Shared/Loading/Loading';
 
 const DashBoard = () => {
     const [user] = useAuthState(auth);
-    const [admin] = useAdmin(user)
+    const [admin, adminLoading] = useAdmin(user)
+
+    // if(adminLoading) {
+    //     return <Loading/>
+    // }
+
     return (
         <div className="drawer drawer-mobile">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -23,7 +29,10 @@ const DashBoard = () => {
                 <li><Link to='/dashboard'>My Appointment</Link></li>
                 <li><Link to='/dashboard/myReview'>My Review</Link></li>
                 <li><Link to='/dashboard/myHistory'>My History</Link></li>
-                {admin && <li><Link to='/dashboard/allUsers'>All Users</Link></li>}
+                {admin && <>
+                    <li><Link to='/dashboard/allUsers'>All Users</Link></li>
+                    <li><Link to='/dashboard/addDoctor'>Add a Doctor</Link></li>
+                </>}
                 </ul>
             </div>
         </div>
