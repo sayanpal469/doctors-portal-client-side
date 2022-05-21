@@ -16,6 +16,7 @@ import MyHistory from './Pages/MyHistory/MyHistory.jsx';
 import Users from './Pages/Users/Users';
 import RequireAdmin from './RequireAdmin/RequireAdmin';
 import AddDoctor from './Pages/AddDoctor/AddDoctor';
+import ManageDoctors from './Pages/ManageDoctors/ManageDoctors';
 
 
 
@@ -36,13 +37,19 @@ function App() {
             <Route index element={ <MyApointment/> } />
             <Route path='myReview' element={ <MyReview/> } />
             <Route path='myHistory' element={ <MyHistory/> } />
+
             <Route path='allUsers' element={ <RequireAdmin>
               <Users/>
             </RequireAdmin> } />
+
             <Route path='addDoctor' element={ <RequireAdmin>
               <AddDoctor/>
             </RequireAdmin> } />
-        </Route>
+
+            <Route path='manageDoctors' element={ <RequireAdmin>
+              <ManageDoctors/>
+            </RequireAdmin> } />
+          </Route>
         
         <Route path='/reviews' element={ <Reviews/> }></Route>
         <Route path='/contact' element={ <Contact/> }></Route>
