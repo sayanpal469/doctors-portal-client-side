@@ -4,7 +4,7 @@ import DoctorsRow from '../DoctorsRow/DoctorsRow';
 import Loading from '../Shared/Loading/Loading';
 
 const ManageDoctors = () => {
-    const {data: doctors, isLoading} = useQuery('doctors', () => fetch('http://localhost:5000/doctor', {
+    const {data: doctors, isLoading, refetch} = useQuery('doctors', () => fetch('http://localhost:5000/doctor', {
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }
@@ -34,6 +34,7 @@ const ManageDoctors = () => {
                                 key={doctor._id}
                                 doctor={doctor}
                                 index={index}
+                                refetch={refetch}
                             ></DoctorsRow>)
                         }
                     </tbody>

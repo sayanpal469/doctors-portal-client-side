@@ -14,6 +14,7 @@ const AvailableAppiontment = ({date, setDate}) => {
         .then(data => {
             //console.log(data);
             setServices(data)
+            console.log(data);
         })
     },[])
     return (
