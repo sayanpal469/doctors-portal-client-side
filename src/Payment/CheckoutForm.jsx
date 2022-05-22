@@ -15,7 +15,7 @@ const CheckoutForm = ({ appointment }) => {
     const { price, patient, patientName } = appointment;
 
     useEffect(() => {
-        fetch(`http://localhost:5000/create-payment-intent`, {
+        fetch(`https://afternoon-falls-94690.herokuapp.com/create-payment-intent`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/jsonn',

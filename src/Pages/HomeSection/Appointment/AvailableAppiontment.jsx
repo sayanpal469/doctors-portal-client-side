@@ -9,7 +9,7 @@ const AvailableAppiontment = ({date, setDate}) => {
 
     const formatedDate = format(date, 'PP')
     useEffect( () => {
-        fetch(`http://localhost:5000/service`)
+        fetch(`https://afternoon-falls-94690.herokuapp.com/service`)
         .then(res => res.json())
         .then(data => {
             //console.log(data);

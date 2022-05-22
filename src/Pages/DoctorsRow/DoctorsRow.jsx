@@ -2,7 +2,7 @@ const DoctorsRow = ({doctor, index, refetch}) => {
     const {name, specialty, email, img} = doctor;
 
     const handelDelete = (email) => {
-        fetch(`http://localhost:5000/doctor/${email}`, {
+        fetch(`https://afternoon-falls-94690.herokuapp.com/doctor/${email}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`

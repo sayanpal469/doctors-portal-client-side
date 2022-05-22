@@ -24,7 +24,7 @@ const BookingModal = ({treatment, date, setTreatment}) => {
             phone: e.target.phone.value
         }
 
-        fetch(`http://localhost:5000/booking`, {
+        fetch(`https://afternoon-falls-94690.herokuapp.com/booking`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
